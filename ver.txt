@@ -1,0 +1,147 @@
+login
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TuProyecto.LoginPage"
+             Title="Login">
+    <ContentPage.Content>
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="Inicio de sesión" FontSize="20" TextColor="Red" HorizontalOptions="Center" Grid.Row="0"/>
+            <Entry Placeholder="Usuario" x:Name="usernameEntry" Grid.Row="1"/>
+            <Entry Placeholder="Contraseña" IsPassword="True" x:Name="passwordEntry" Grid.Row="2"/>
+            <Button Text="Iniciar sesión" Clicked="OnLoginButtonClicked" Grid.Row="3"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+login cs
+using Microsoft.Maui.Controls;
+
+namespace TuProyecto
+{
+    public partial class LoginPage : ContentPage
+    {
+        public LoginPage()
+        {
+            InitializeComponent();
+        }
+
+        private void OnLoginButtonClicked(object sender, EventArgs e)
+        {
+            if (usernameEntry.Text == "estudiante2024" && passwordEntry.Text == "uisrael2024")
+            {
+                Navigation.PushAsync(new RegistroPage(usernameEntry.Text));
+            }
+            else
+            {
+                DisplayAlert("Error", "Usuario o contraseña incorrectos", "OK");
+            }
+        }
+    }
+}
+
+registro
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TuProyecto.RegistroPage"
+             Title="Registro">
+    <ContentPage.Content>
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="Registro" FontSize="22" TextColor="Blue" HorizontalOptions="Center" Grid.Row="0"/>
+            <Label Text="{Binding Username}" x:Name="userLabel" Grid.Row="1"/>
+            <Entry Placeholder="Nombre" x:Name="nombreEntry" Grid.Row="2"/>
+            <Entry Placeholder="Apellido" x:Name="apellidoEntry" Grid.Row="3"/>
+            <Entry Placeholder="Edad" x:Name="edadEntry" Grid.Row="4"/>
+            <StackLayout Grid.Row="5" Orientation="Horizontal">
+                <Button Text="Calcular Pago Mensual" Clicked="OnCalcularPagoMensualButtonClicked"/>
+                <Button Text="Ver Resumen" Clicked="OnVerResumenButtonClicked"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+registro cs
+using Microsoft.Maui.Controls;
+
+namespace TuProyecto
+{
+    public partial class RegistroPage : ContentPage
+    {
+        public RegistroPage(string username)
+        {
+            InitializeComponent();
+            userLabel.Text = "Usuario conectado: " + username;
+        }
+
+        private void OnCalcularPagoMensualButtonClicked(object sender, EventArgs e)
+        {
+            // Aquí puedes implementar la lógica para calcular el pago mensual.
+        }
+
+        private void OnVerResumenButtonClicked(object sender, EventArgs e)
+        {
+            // Aquí puedes implementar la lógica para mostrar un resumen.
+        }
+    }
+}
+
+resumen
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TuProyecto.ResumenPage"
+             Title="Resumen">
+    <ContentPage.Content>
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="Resumen" FontSize="22" TextColor="Black" HorizontalOptions="Center" Grid.Row="0"/>
+            <Label Text="{Binding Username}" x:Name="userLabel" Grid.Row="1"/>
+            <Label Text="{Binding Nombre}" x:Name="nombreLabel" Grid.Row="2"/>
+            <Label Text="{Binding Apellido}" x:Name="apellidoLabel" Grid.Row="3"/>
+            <Label Text="{Binding Edad}" x:Name="edadLabel" Grid.Row="4"/>
+            <Button Text="Cerrar Sesión" Clicked="OnCerrarSesionButtonClicked" Grid.Row="5"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+resumen cs
+using Microsoft.Maui.Controls;
+
+namespace TuProyecto
+{
+    public partial class ResumenPage : ContentPage
+    {
+        public ResumenPage(string username, string nombre, string apellido, string edad)
+        {
+            InitializeComponent();
+            userLabel.Text = "Usuario conectado: " + username;
+            nombreLabel.Text = "Nombre: " + nombre;
+            apellidoLabel.Text = "Apellido: " + apellido;
+            edadLabel.Text = "Edad: " + edad;
+        }
+
+        private void OnCerrarSesionButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PopToRootAsync();
+        }
+    }
+}
+
+
